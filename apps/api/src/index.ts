@@ -184,8 +184,11 @@ const start = async (): Promise<void> => {
 const entry = process.argv[1];
 const isDirectExecution =
   typeof entry === "string" && pathToFileURL(entry).href === import.meta.url;
+const isServerlessRuntime = Boolean(
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME,
+);
 
-if (isDirectExecution && process.env.NODE_ENV !== "test") {
+if (isDirectExecution && process.env.NODE_ENV !== "test" && !isServerlessRuntime) {
   await start();
 
   const shutdown = async (signal: string): Promise<void> => {
