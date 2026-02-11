@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "dist/index.js"
     }
-  ],
-  "env": {
-    "MASTER_KEY": "@master-key"
-  }
+  ]
 }
