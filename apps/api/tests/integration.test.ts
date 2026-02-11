@@ -115,4 +115,26 @@ describe("API integration", () => {
     expect(typeof body.uptimeSeconds).toBe("number");
     expect(typeof body.version).toBe("string");
   });
+
+  it("returns API index at root path", async () => {
+    const response = await fastify.inject({
+      method: "GET",
+      url: "/",
+    });
+
+    expect(response.statusCode).toBe(200);
+
+    const body = response.json() as {
+      success: boolean;
+      service: string;
+      endpoints: string[];
+      transactions: number;
+    };
+
+    expect(body.success).toBe(true);
+    expect(body.service).toBe("mirfa-secure-tx-api");
+    expect(Array.isArray(body.endpoints)).toBe(true);
+    expect(body.endpoints.length).toBeGreaterThan(0);
+    expect(typeof body.transactions).toBe("number");
+  });
 });

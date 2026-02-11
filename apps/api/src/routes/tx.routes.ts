@@ -21,6 +21,22 @@ export async function txRoutes(fastify: FastifyInstance): Promise<void> {
 
   const encryption = new ApiEncryptionService(masterKey);
 
+  fastify.get("/", async () => {
+    return {
+      success: true,
+      service: "mirfa-secure-tx-api",
+      message: "Use /tx endpoints for transactions and /health for runtime status",
+      endpoints: [
+        "GET /health",
+        "GET /tx",
+        "GET /tx/:id",
+        "POST /tx/encrypt",
+        "POST /tx/:id/decrypt",
+      ],
+      transactions: storage.count(),
+    };
+  });
+
   fastify.post<{
     Body: { partyId: string; payload: Record<string, unknown> };
   }>(

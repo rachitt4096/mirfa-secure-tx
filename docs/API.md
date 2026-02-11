@@ -8,6 +8,28 @@ Base URL: `http://localhost:3001`
 - Rate limit applies per IP + route bucket (except `/health`).
 - Common security headers are returned on all responses.
 
+## GET `/`
+
+API index route that confirms service availability and lists key endpoints.
+
+Response:
+
+```json
+{
+  "success": true,
+  "service": "mirfa-secure-tx-api",
+  "message": "Use /tx endpoints for transactions and /health for runtime status",
+  "endpoints": [
+    "GET /health",
+    "GET /tx",
+    "GET /tx/:id",
+    "POST /tx/encrypt",
+    "POST /tx/:id/decrypt"
+  ],
+  "transactions": 2
+}
+```
+
 ## POST `/tx/encrypt`
 
 Encrypt and store a transaction payload.
