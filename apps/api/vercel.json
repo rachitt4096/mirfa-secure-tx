@@ -3,7 +3,13 @@
   "builds": [
     {
       "src": "src/vercel.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "../../packages/crypto/package.json",
+          "../../packages/crypto/dist/**"
+        ]
+      }
     }
   ],
   "routes": [
